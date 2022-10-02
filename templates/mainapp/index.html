@@ -19,12 +19,7 @@
                 <option value="{{ curr }}" {% if to_curr == curr %}selected{% endif %}>{{ curr }}</option>
             {% endfor %}
         </select>
-        <label for="to-curr">Получаем*</label>
-        <select class="get_amount" value="{{ get_amount }}">
-            {% for curr in currencies %}
-                <option value="{{ curr }}" {% if to_curr == curr %}selected{% endif %}>{{ curr }}</option>
-            {% endfor %}
-        </select>
+        
     </form>
 
 
