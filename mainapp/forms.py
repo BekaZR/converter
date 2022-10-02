@@ -8,3 +8,4 @@ class ConverterForm(forms.ModelForm):
         fields = (
             'amount', 'sale_currency', 'buy_currency', 'get_amount',
         )
+    

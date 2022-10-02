@@ -1,27 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <form action='' method="POST">
-        {% csrf_token %}
-        <label for="amount">Сумма*</label>
-        <input type="number" placeholder="Введите число" value="{{ amount }}" name="from-amount">
-        
-        <label for="sale_currency">Отдаем*</label>
-            <select name="sale_currency" value="{{ sale_currency }}">
-                {% for curr in currencies %}
-                    <option value="{{ curr }}" {% if from_curr == curr %}selected{% endif %}>{{ curr }}</option>
-                {% endfor %}
-            </select>
-        <label for="buy_currency">Получаем*</label>
-        <select name="buy_currency" value="{{ buy_currency }}">
-            {% for curr in currencies %}
-                <option value="{{ curr }}" {% if to_curr == curr %}selected{% endif %}>{{ curr }}</option>
-            {% endfor %}
-        </select>
-        
-    </form>
-    
-
-
+    <div class="container">
+        <div class="row">
+            <div class="card box-shadow m-2 form-wrap">
+                <div class="card-header text-center">
+                    <h3>Конвертер валют </h3>
+                </div>
+                <form id="form" class="p-3" action='' method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-4 mb-0">
+                            <label for="amount">Сумма*</label>
+                            <input id='amount' type="number" class="form-control" placeholder="Введите число" {% if form.cleaned_data.amount %} value="{{ form.cleaned_data.amount }}" {% endif %} name="amount">
+                        </div>
+                        <div class="form-group col-md-4 mb-0">
+                            <label for="sale_currency">Отдаем*</label>
+                            <select class="form-control" id="sale_currency" name="sale_currency" value="{{ sale_currency }}">
+                                {% for curr in currencies %}
+                                    <option value="{{ curr }}" {% if form.cleaned_data.sale_currency == curr %}selected{% endif %}>{{ curr }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 mb-0">
+                            <label for="buy_currency">Получаем*</label>
+                            <select class="form-control" id="buy_currency" name="buy_currency" value="{{ buy_currency }}">
+                                {% for curr in currencies %}
+                                    <option value="{{ curr }}" {% if form.cleaned_data.buy_currency == curr %}selected{% endif %}>{{ curr }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    {% if converted_amount %}
+                        <div class="card col-6 p-0 m-auto">
+                            <div class="card-header text-center">
+                                    <h5>Отдаем <b>{{ currencies.form.sale_currency }}</b> Получаем
+                                        <b>{{ currencies.form.buy_currency }}</b></h5>
+                            </div>
+                            <div class="card-body">
+                                {{ converted_amount }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="submit-btn mt-3">
+                        <button type="submit" class="btn btn-primary">Рассчитать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
