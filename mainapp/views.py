@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 
-def exchange(request):
+def index(request):
     name = "Beka"
     
     context = {
