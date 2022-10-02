@@ -1,11 +1,15 @@
 from django.shortcuts import render
 
+from mainapp.forms import ConverterForm
+
 
 def index(request):
-    name = "Beka"
-    
+    if request.method == 'POST':
+        form = ConverterForm(request.POST)
+    else:
+        form = ConverterForm()
     context = {
-        'name': name
+        'form': form
     }
     return render(request, 'mainapp/index.html', context)
 
