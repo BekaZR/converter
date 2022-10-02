@@ -4,7 +4,27 @@
 
     <form action='' method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <label for="amount">Сумма*</label>
+        <input type="number" placeholder="Введите число" value="{{ amount }}" name="from-amount">
+        
+        <label for="sale_currency">Отдаем*</label>
+            <select name="sale_currency" value="{{ sale_currency }}">
+                {% for curr in currencies %}
+                    <option value="{{ curr }}" {% if from_curr == curr %}selected{% endif %}>{{ curr }}</option>
+                {% endfor %}
+            </select>
+        <label for="buy_currency">Получаем*</label>
+        <select name="buy_currency" value="{{ buy_currency }}">
+            {% for curr in currencies %}
+                <option value="{{ curr }}" {% if to_curr == curr %}selected{% endif %}>{{ curr }}</option>
+            {% endfor %}
+        </select>
+        <label for="to-curr">Получаем*</label>
+        <select class="get_amount" value="{{ get_amount }}">
+            {% for curr in currencies %}
+                <option value="{{ curr }}" {% if to_curr == curr %}selected{% endif %}>{{ curr }}</option>
+            {% endfor %}
+        </select>
     </form>
 
 
